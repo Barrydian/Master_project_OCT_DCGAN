@@ -56,8 +56,6 @@ The following tools were used in this project:
 # Clone this project
 $ git clone https://github.com/Barrydian/octintern.git
 
-$ create a folder named 'data' and  
-
 # Access to the directory
 $ cd GAN 
 
