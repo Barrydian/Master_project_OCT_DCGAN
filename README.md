@@ -34,7 +34,7 @@
 <br>
 
 ## About this project##
-In this project we are implementing a DCGAN modele to generate a OCT images. 
+In this project we are implementing a DCGAN modele to generate OCT images. 
 
 ## Steps##
  
@@ -67,7 +67,6 @@ $ run the RGBA2RGB file using "python RGBA2RGB.py" this is not mandatory step
 $ run then the gan file using gan.py file
 
 ```
-
 Made by : <a href="https://github.com/Barrydian/OCT_DCGAN.git}}" target="_blank">Mamadou Dian BARRY</a>
 
 &#xa0;
