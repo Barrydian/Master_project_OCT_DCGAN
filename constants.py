@@ -16,11 +16,11 @@ EPOCH = 10000
 version = 'newOctImages'
 newOCT_path = './' + version
 
-# number couche convele generator 
+# Cgenerator 
 nb_couch_gen4, nb_couch_gen8, nb_couch_gen16, nb_couch_gen32, nb_couch_gen64 = 512, 256, 128, 64, 32 # nb_couch_genhannel num
 s4 = 4
 
-# channnel nm discriminator 
+# Cdiscriminator 
 ch_disc2, ch_disc4, ch_disc8, ch_disc16 = 64, 128, 256, 512  # channel num: 64, 128, 256, 512
 
 
