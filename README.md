@@ -54,7 +54,7 @@ The following tools were used in this project:
 
 ```bash
 # Clone this project
-$ git clone https://github.com/Barrydian/octintern.git
+$ git clone https://github.com/Barrydian/Master_project_OCT_DCGAN.git
 
 # Access to the directory
 $ cd GAN 
