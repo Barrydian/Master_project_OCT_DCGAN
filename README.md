@@ -64,7 +64,7 @@ $ run the resize file using "python resize.py"
 $ run the RGBA2RGB file using "python RGBA2RGB.py" this is not mandatory step
 
 # Run the main project file for
-$ run then the gan file using gan.py file
+$ run then the gan file using 'python gan.py'
 
 ```
 Made by : <a href="https://github.com/Barrydian/OCT_DCGAN.git}}" target="_blank">Mamadou Dian BARRY</a>
