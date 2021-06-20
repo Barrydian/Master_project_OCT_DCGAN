@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
+import sys
 from utils import *
 from constants import *
 from process_data import process_data
 from generator import generator
-from discriminator import discriminator
+from discriminator import discriminator, lrelu
 from test import test 
+from resize_img import resize_img
 
-
-def train():
+def train(img_resized, img_generated,_saved_models):
     
     with tf.variable_scope('input'):
         #real and fake image placholders
@@ -15,7 +16,7 @@ def train():
         random_input = tf.placeholder(tf.float32, shape=[None, random_dim], name='rand_input')
         is_train = tf.placeholder(tf.bool, name='is_train')
     
-    # wgan
+    # gan
     fake_image = generator(random_input, random_dim, is_train)
     
     real_result = discriminator(real_image, is_train)
@@ -35,7 +36,7 @@ def train():
     d_clip = [v.assign(tf.clip_by_value(v, -0.01, 0.01)) for v in d_vars]
 
     batch_size = BATCH_SIZE
-    image_batch, samples_num = process_data()
+    image_batch, samples_num = process_data(img_resized)
     
     batch_num = int(samples_num / batch_size)
     total_batch = 0
@@ -46,16 +47,16 @@ def train():
     
     # continue training
     save_path = saver.save(sess, "/tmp/model.ckpt")
-    ckpt = tf.train.latest_checkpoint('./model/' + version)
+    ckpt = tf.train.latest_checkpoint(_saved_models)
     saver.restore(sess, save_path)
     coord = tf.train.Coordinator()
     threads = tf.train.start_queue_runners(sess=sess, coord=coord)
 
-    print('total training sample num:%d' % samples_num)
-    print('batch size: %d, batch num per epoch: %d, epoch num: %d' % (batch_size, batch_num, EPOCH))
-    print('start training...')
+    print(' ---- total training sample num: %d' % samples_num)
+    print(' ---- batch size: %d, batch num per epoch: %d, epoch num: %d' % (batch_size, batch_num, EPOCH))
+    print(' ---- start training...')
     for i in range(EPOCH):
-        print("Running epoch {}/{}...".format(i, EPOCH))
+        print(" ---- Running epoch {}/{}...".format(i, EPOCH))
         for j in range(batch_num):
             print(j)
             d_iters = 5
@@ -80,22 +81,22 @@ def train():
             
         # save check point every 500 epoch
         if i%500 == 0:
-            if not os.path.exists('./model/' + version):
-                os.makedirs('./model/' + version)
-            saver.save(sess, './model/' +version + '/' + str(i))  
+            if not os.path.exists(_saved_models):
+                os.makedirs(_saved_models)
+            saver.save(sess, _saved_models + '/' + str(i))  
         if i%50 == 0:
             
             # save images
-            if  os.path.exists(newOCT_path):
-                shutil.rmtree(newOCT_path, ignore_errors=True)
-            os.makedirs(newOCT_path)
+            if   os.path.exists(img_generated):
+                shutil.rmtree(img_generated, ignore_errors=True)
+            os.makedirs(img_generated)
             sample_noise = np.random.uniform(-1.0, 1.0, size=[batch_size, random_dim]).astype(np.float32)
             imgtest = sess.run(fake_image, feed_dict={random_input: sample_noise, is_train: False})
 
             # imgtest.astype(np.uint8)
-            save_images(imgtest, [8,8] ,newOCT_path + '/epoch' + str(i) + '.jpg')
+            save_images(imgtest, [8,8] ,img_generated + '/epoch' + str(i) + '.jpg')
             
-            print('train:[%d],d_loss:%f,g_loss:%f' % (i, dLoss, gLoss))
+            print(' ---- train: [%d],d_loss: %f,g_loss: %f' % (i, dLoss, gLoss))
     coord.request_stop()
     coord.join(threads)
 
@@ -103,5 +104,28 @@ def train():
 
 
 if __name__ == "__main__":
-    train()
-    test()
+    
+    if len (sys.argv) != 3 :
+        print(" Args not found : global path for arg 1 and image subdirectory for arg 2.")
+        sys.exit(1)
+    if not os.path.exists(sys.argv[1]) or not os.path.exists(sys.argv[2]):
+        print('----------------------------------------------------------------------------')
+        print(' --- Error : Args not path or a direcotry ! ')
+        sys.exit(1)
+        
+    if len(os.listdir(sys.argv[1])) == 0:
+        print('----------------------------------------------------------------------------')
+        print(' --- Error : Arg 1, directory images is empty ! ')
+        sys.exit(1)
+    print('----------------------------------------------------------------------------')   
+    print(' --- Beginning Resize image: ')
+    resize_img(sys.argv[1],sys.argv[2]+"/_resized",WIDTH,HEIGHT,CHANNEL)
+    print('----------------------------------------------------------------------------')
+    print(' --- Beginning tain model: ')
+    train(sys.argv[2]+"/_resized",sys.argv[2]+"/_img_generated",sys.argv[2]+"/_saved_model")
+    print(' --- End tain model: ')
+    print('----------------------------------------------------------------------------')
+    print(' --- Beginning test model: ')
+    test(sys.argv[2]+"/_saved_model")
+    print(' --- Beginning test model: ')
+

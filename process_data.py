@@ -1,12 +1,12 @@
 
 from constants import *
  
-def process_data():   
-    current_dir = os.getcwd()
-    oct_dir = os.path.join(current_dir, 'data')
+def process_data(target_data):   
+    #current_dir = os.getcwd()
+    #oct_dir = os.path.join(current_dir, target_data)
     images = []
-    for each in os.listdir(oct_dir):
-        images.append(os.path.join(oct_dir,each))
+    for each in os.listdir(target_data):
+        images.append(os.path.join(target_data,each))
     # print images    
     all_images = tf.convert_to_tensor(images, dtype = tf.string)
     

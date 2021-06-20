@@ -6,10 +6,10 @@ __pycache__/
 # C extensions
 *.so
 #data/
-images/
-newOctImages/
-model/
+ingest/
+data/
 
+utils.pyc
 # Distribution / packaging
 .Python
 build/

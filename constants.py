@@ -13,7 +13,7 @@ slim = tf.contrib.slim
 HEIGHT, WIDTH, CHANNEL = 128, 128, 3
 BATCH_SIZE = 64
 EPOCH = 10000
-version = 'newOctImages'
+version = '_saved_models'
 newOCT_path = './' + version
 
 # Cgenerator 
