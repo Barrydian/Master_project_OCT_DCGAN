@@ -57,14 +57,10 @@ The following tools were used in this project:
 $ git clone https://github.com/Barrydian/Master_project_OCT_DCGAN.git
 
 # Access to the directory
-$ cd GAN 
-
-$ run the resize file using "python resize.py"
-
-$ run the RGBA2RGB file using "python RGBA2RGB.py" this is not mandatory step
+$ cd Master_project_OCT_DCGAN 
 
 # Run the main project file for
-$ run then the gan file using 'python gan.py'
+$ run then the gan file using 'python gan.py' with two parameters (data scr and data target)
 
 ```
 Made by : <a href="https://github.com/Barrydian/OCT_DCGAN.git}}" target="_blank">Mamadou Dian BARRY</a>

@@ -8,6 +8,7 @@ def test(_saved_models):
         random_input = tf.placeholder(tf.float32, shape=[None, random_dim], name='rand_input')
         is_train = tf.placeholder(tf.bool, name='is_train')
 
+
     #w_gan
     fake_image = generator(random_input, random_dim, is_train)
     real_result = discriminator(real_image, is_train)
