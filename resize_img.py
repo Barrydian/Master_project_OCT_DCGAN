@@ -18,4 +18,4 @@ def resize_img (src_database, target_database, width, height, channel) :
             img = cv2.resize(img,(width,height))
             cv2.imwrite(os.path.join(target_database,each), img) 
             print(os.path.join(target_database,each))
-        print(' --- Finished resize img ... ')
+        print(' --- Images resizing done ... ')

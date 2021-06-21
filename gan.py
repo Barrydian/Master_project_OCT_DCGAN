@@ -110,12 +110,12 @@ if __name__ == "__main__":
         sys.exit(1)
     if not os.path.exists(sys.argv[1]) or not os.path.exists(sys.argv[2]):
         print('----------------------------------------------------------------------------')
-        print(' --- Error : Args not path or a direcotry ! ')
+        print(' --- Error : Args is not a path or a direcotry ! ')
         sys.exit(1)
         
     if len(os.listdir(sys.argv[1])) == 0:
         print('----------------------------------------------------------------------------')
-        print(' --- Error : Arg 1, directory images is empty ! ')
+        print(' --- Error : Arg 1, images directory is empty ! ')
         sys.exit(1)
     print('----------------------------------------------------------------------------')   
     print(' --- Beginning Resize image: ')
