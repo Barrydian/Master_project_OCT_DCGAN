@@ -44,7 +44,7 @@ def discriminator(input, is_train, reuse=False):
         b2 = tf.get_variable('b2', shape=[1], dtype=tf.float32,
                              initializer=tf.constant_initializer(0.0))
 
-        # wgan just get rid of the sigmoid
+        # w_gan just get rid of the sigmoid
         logits = tf.add(tf.matmul(fc1, w2), b2, name='logits')
         # dcgan
         acted_out = tf.nn.sigmoid(logits)
